@@ -1,26 +1,27 @@
 ; ---------------------------------------------------------------
+; ZeroPage
+; ---------------------------------------------------------------
+
+.segment "ZEROPAGE"
+
+.importzp palette_pointer_lo
+.importzp palette_pointer_hi
+
+; ---------------------------------------------------------------
 ; Code
 ; ---------------------------------------------------------------
 
 .segment "CODE"
 
 ; ------------------
-; palette_default_load
+; palette_default_init
 ; ------------------
-.export palette_default_load
-.proc palette_default_load
-    ldx $2002 ; PPU_STATUS
-    ldx #$3f
-    stx $2006 ; PPU_ADDR
-    ldx #$00
-    sta $2006 ; PPU_ADDR
-    ldx #0
-    loop:
-        lda palette_default_bytes, X
-        sta $2007 ; PPU_DATA
-        inx
-        cpx #32
-        bne loop
+.export palette_default_init
+.proc palette_default_init
+    lda #.LOBYTE(palette_default_bytes)
+    sta palette_pointer_lo
+    lda #.HIBYTE(palette_default_bytes)
+    sta palette_pointer_hi
     rts
 .endproc
 

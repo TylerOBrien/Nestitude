@@ -10,7 +10,11 @@
 
 .segment "ZEROPAGE"
 
-palette_state: .res 1
+palette_pointer_lo: .res 1
+palette_pointer_hi: .res 1
+
+.exportzp palette_pointer_lo
+.exportzp palette_pointer_hi
 
 ; ---------------------------------------------------------------
 ; Code
@@ -18,31 +22,24 @@ palette_state: .res 1
 
 .segment "CODE"
 
-.import palette_default_load
-
 ; ------------------
 ; palette_load
 ; ------------------
 .export palette_load
 .proc palette_load
-    lda palette_state
-    cmp #PALETTE_DEFAULT
-    beq load_default
-    jmp exit
+    ldx $2002 ; PPU_STATUS
+    ldx #$3f
+    stx $2006 ; PPU_ADDR
+    ldx #$00
+    sta $2006 ; PPU_ADDR
+    ldy #0
 
-    load_default:
-        jsr palette_default_load
+    loop:
+        lda (palette_pointer_lo), Y
+        sta $2007 ; PPU_DATA
+        iny
+        cpy #32
+        bne loop
 
-    exit:
-        rts
-.endproc
-
-; ------------------
-; palette_init
-; ------------------
-.export palette_init
-.proc palette_init
-    lda #PALETTE_DEFAULT
-    sta palette_state
     rts
 .endproc
