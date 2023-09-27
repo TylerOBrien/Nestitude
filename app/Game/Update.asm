@@ -48,7 +48,13 @@
     ;
 
     jsr game_update_from_state
-    rts
+
+    ;
+    ; Done
+    ;
+
+    exit:
+        rts
 .endproc
 
 ; ------------------
