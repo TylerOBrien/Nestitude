@@ -18,7 +18,7 @@
 
 .segment "CODE"
 
-.import buffer_sprite_push_a
+.import buffer_sprite_push_from_a
 
 ; ------------------
 ; stage1_update
@@ -26,13 +26,13 @@
 .export stage1_update
 .proc stage1_update
     lda #150
-    jsr buffer_sprite_push_a
+    jsr buffer_sprite_push_from_a
     lda #2
-    jsr buffer_sprite_push_a
+    jsr buffer_sprite_push_from_a
     lda #2
-    jsr buffer_sprite_push_a
+    jsr buffer_sprite_push_from_a
     lda #50
-    jsr buffer_sprite_push_a
+    jsr buffer_sprite_push_from_a
     rts
 .endproc
 

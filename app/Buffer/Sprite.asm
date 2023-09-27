@@ -27,10 +27,10 @@ buffer_sprite: .res 256
 .segment "CODE"
 
 ; ------------------
-; buffer_sprite_push_a
+; buffer_sprite_sta
 ; ------------------
-.export buffer_sprite_push_a
-.proc buffer_sprite_push_a
+.export buffer_sprite_push_from_a
+.proc buffer_sprite_push_from_a
     ldx buffer_sprite_length
     sta buffer_sprite, X
     inx
@@ -43,29 +43,15 @@ buffer_sprite: .res 256
 ; ------------------
 .export buffer_sprite_draw
 .proc buffer_sprite_draw
-    ldx #0
-    cpx buffer_sprite_length
-    beq exit
-
-    loop:
-        lda buffer_sprite, X
-        sta OAM, X ; y coord
-        inx
-        lda buffer_sprite, X
-        sta OAM, X ; tile
-        inx
-        lda buffer_sprite, X
-        sta OAM, X ; attr
-        inx
-        lda buffer_sprite, X
-        sta OAM, X ; x coord
-        inx
-        cpx buffer_sprite_length
-        bcc loop
-
-    ldx #0
-    stx buffer_sprite_length
-
-    exit:
-        rts
+    php
+    pha
+    lda #.LOBYTE(buffer_sprite)
+    sta $2003 ; OAM_ADDR
+    lda #.HIBYTE(buffer_sprite)
+    sta $4014 ; OAM_DMA
+    lda #0
+    sta buffer_sprite_length
+    pla
+    plp
+    rts
 .endproc

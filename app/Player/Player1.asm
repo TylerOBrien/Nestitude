@@ -42,7 +42,7 @@ PLAYER_FALLING   = %00000000
 
 .segment "CODE"
 
-.import buffer_sprite_push_a
+.import buffer_sprite_push_from_a
 
 .proc player_jump
     ldx player_y_count
@@ -471,13 +471,13 @@ PLAYER_FALLING   = %00000000
     jsr player_1_hittest
 
     lda player_y_hi
-    jsr buffer_sprite_push_a
+    jsr buffer_sprite_push_from_a
     lda #1
-    jsr buffer_sprite_push_a
+    jsr buffer_sprite_push_from_a
     lda #2
-    jsr buffer_sprite_push_a
+    jsr buffer_sprite_push_from_a
     lda player_x_hi
-    jsr buffer_sprite_push_a
+    jsr buffer_sprite_push_from_a
 
     rts
 .endproc

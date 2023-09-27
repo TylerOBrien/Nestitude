@@ -23,11 +23,6 @@ nmi_count: .res 1
 ; ------------------
 .export nmi_handle
 .proc nmi_handle
-    lda #0
-    sta $2003 ; OAM_ADDR
-    lda #2
-    sta $4014 ; OAM_DMA
-
     jsr game_draw ; Draw the game
 
     lda #0
