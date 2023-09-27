@@ -25,7 +25,7 @@ palette_pointer_hi: .res 1
     ldx #$3f
     stx $2006 ; PPU_ADDR
     ldx #$00
-    sta $2006 ; PPU_ADDR
+    stx $2006 ; PPU_ADDR
     ldy #0
 
     loop:
