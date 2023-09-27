@@ -72,6 +72,8 @@
     check_if_play:
         cmp #GAME_STATE_PLAY
         jsr game_update_play
+
+    exit:
         rts
 .endproc
 
