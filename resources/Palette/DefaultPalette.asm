@@ -16,7 +16,7 @@
     sta $2006 ; PPU_ADDR
     ldx #0
     loop:
-        lda palette_default_ro_data,X
+        lda palette_default_bytes, X
         sta $2007 ; PPU_DATA
         inx
         cpx #32
@@ -29,7 +29,7 @@
 ; ---------------------------------------------------------------
 
 .segment "RODATA"
-palette_default_ro_data:
+palette_default_bytes:
     .byte $0f, $12, $23, $27
     .byte $21, $16, $38, $39
     .byte $0f, $0c, $07, $13
