@@ -61,7 +61,15 @@
 ; game_update_from_state
 ; ------------------
 .proc game_update_from_state
+    ;
+    ; Load game state
+    ;
+
     lda game_state
+
+    ;
+    ; Check if state is TITLE
+    ;
 
     check_if_title:
         cmp #GAME_STATE_TITLE
@@ -69,9 +77,17 @@
         jsr game_update_title
         rts
 
+    ;
+    ; Check if state is PLAY
+    ;
+
     check_if_play:
         cmp #GAME_STATE_PLAY
         jsr game_update_play
+
+    ;
+    ; Done
+    ;
 
     exit:
         rts
