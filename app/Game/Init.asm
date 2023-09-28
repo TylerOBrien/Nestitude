@@ -20,6 +20,9 @@ game_state: .res 1
 
 .segment "CODE"
 
+.import clock_init
+.import tick_init
+
 .import controller_init
 .import hit_test_init
 .import nmi_init
@@ -33,6 +36,8 @@ game_state: .res 1
 ; ------------------
 .export game_init
 .proc game_init
+    jsr clock_init
+    jsr tick_init
     jsr controller_init
     jsr hit_test_init
     jsr nmi_init
