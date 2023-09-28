@@ -37,15 +37,11 @@ buffer_sprite: .res 256
 ; ------------------
 .export buffer_sprite_draw
 .proc buffer_sprite_draw
-    php
-    pha
     lda #.LOBYTE(buffer_sprite)
     sta $2003 ; OAM_ADDR
     lda #.HIBYTE(buffer_sprite)
     sta $4014 ; OAM_DMA
     lda #0
     sta buffer_sprite_length
-    pla
-    plp
     rts
 .endproc

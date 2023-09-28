@@ -23,6 +23,12 @@ nmi_wait: .res 1
 ; ------------------
 .export nmi_handle
 .proc nmi_handle
+    pha
+    txa
+    pha
+    tya
+    pha
+
     jsr tick_update
     jsr clock_update
     jsr buffer_sprite_draw
@@ -32,6 +38,11 @@ nmi_wait: .res 1
 	sta $2005
     sta nmi_wait
 
+    pla
+    tay
+    pla
+    tax
+    pla
     rti
 .endproc
 
