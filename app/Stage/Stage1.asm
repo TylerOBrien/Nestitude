@@ -119,12 +119,8 @@ BOX_YMAX = $4f
 ; ------------------
 .export stage1_hittest_x
 .proc stage1_hittest_x
-    ldy #2
-    lda (actor_pointer_lo), Y ; vel_x
-    beq exit
     jsr stage1_platform1_hittest_x
-    exit:
-        rts
+    rts
 .endproc
 
 ; ------------------
@@ -132,12 +128,8 @@ BOX_YMAX = $4f
 ; ------------------
 .export stage1_hittest_y
 .proc stage1_hittest_y
-    ldy #3
-    lda (actor_pointer_lo), Y ; vel_y
-    beq exit
     jsr stage1_platform1_hittest_y
-    exit:
-        rts
+    rts
 .endproc
 
 ; ------------------

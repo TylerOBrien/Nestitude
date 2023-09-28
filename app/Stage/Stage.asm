@@ -12,6 +12,8 @@
 
 stage_state: .res 1
 
+.importzp actor_pointer_lo
+
 ; ---------------------------------------------------------------
 ; Code
 ; ---------------------------------------------------------------
@@ -54,6 +56,10 @@ stage_state: .res 1
 ; ------------------
 .export stage_hittest_x
 .proc stage_hittest_x
+    ldy #2
+    lda (actor_pointer_lo), Y ; vel_x
+    beq exit
+
     lda stage_state
     cmp #STAGE_1
     bne exit
@@ -68,6 +74,10 @@ stage_state: .res 1
 ; ------------------
 .export stage_hittest_y
 .proc stage_hittest_y
+    ldy #3
+    lda (actor_pointer_lo), Y ; vel_y
+    beq exit
+
     lda stage_state
     cmp #STAGE_1
     bne exit
