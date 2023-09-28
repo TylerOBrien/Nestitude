@@ -24,7 +24,6 @@ game_state: .res 1
 .import tick_init
 
 .import controller_init
-.import hit_test_init
 .import nmi_init
 .import nametable_default_init
 .import palette_default_init
@@ -39,7 +38,6 @@ game_state: .res 1
     jsr clock_init
     jsr tick_init
     jsr controller_init
-    jsr hit_test_init
     jsr nmi_init
     jsr nametable_default_init
     jsr palette_default_init
