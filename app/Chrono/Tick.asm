@@ -10,10 +10,8 @@
 
 .segment "ZEROPAGE"
 
-tick_ones_count: .res 1
-tick_tens_count: .res 1
-tick_hundreds_count: .res 1
-tick_thousands_count: .res 1
+tick_count_lo: .res 1
+tick_count_hi: .res 1
 
 ; ---------------------------------------------------------------
 ; Code
@@ -26,31 +24,14 @@ tick_thousands_count: .res 1
 ; ------------------
 .export tick_update
 .proc tick_update
-    increment_ones:
-        ldx tick_ones_count
-        inx
-        stx tick_ones_count
-        cmp #10
-        bcc exit
-
-    increment_hundreds:
-        ldx #0
-        stx tick_ones_count
-        ldx tick_hundreds_count
-        inx
-        stx tick_hundreds_count
-        cmp #100
-        bcc exit
-
-    increment_thousands:
-        ldx #0
-        stx tick_hundreds_count
-        ldx tick_thousands_count
-        inx
-        stx tick_thousands_count
-
-    exit:
-        rts
+    lda tick_count_lo
+    clc
+    adc #1
+    sta tick_count_lo
+    lda tick_count_hi
+    adc #0
+    sta tick_count_hi
+    rts
 .endproc
 
 ; ------------------
@@ -59,9 +40,7 @@ tick_thousands_count: .res 1
 .export tick_init
 .proc tick_init
     lda #0
-    sta tick_ones_count
-    sta tick_tens_count
-    sta tick_hundreds_count
-    sta tick_thousands_count
+    sta tick_count_lo
+    sta tick_count_hi
     rts
 .endproc
