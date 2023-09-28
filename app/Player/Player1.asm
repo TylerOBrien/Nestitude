@@ -4,9 +4,7 @@
 
 .include "../constants.inc"
 
-player1_ON_GROUND = %00000001
-player1_JUMPING   = %00000010
-player1_FALLING   = %00000000
+PLAYER1_ON_GROUND = %00000001
 
 ; ---------------------------------------------------------------
 ; ZeroPage
@@ -242,7 +240,7 @@ player1_y_walk_vel_hi: .res 1
     sta player1_x_pos_hi
     sta player1_y_pos_hi
 
-    lda #player1_ON_GROUND
+    lda #PLAYER1_ON_GROUND
     sta player1_state
 
     rts
