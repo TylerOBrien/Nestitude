@@ -28,5 +28,5 @@
 ; ------------------
 
 .segment "TILES"
-    .incbin "../resources/Pattern/default1.chr"
-    .incbin "../resources/Pattern/background.chr"
+    .incbin "../assets/chr/sprite.chr"
+    .incbin "../assets/chr/background.chr"
