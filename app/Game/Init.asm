@@ -27,7 +27,7 @@ game_state: .res 1
 .import nmi_init
 .import nametable_default_init
 .import palette_default_init
-.import player_init
+.import player1_init
 .import stage_init
 
 ; ------------------
@@ -41,7 +41,7 @@ game_state: .res 1
     jsr nmi_init
     jsr nametable_default_init
     jsr palette_default_init
-    jsr player_init
+    jsr player1_init
     jsr stage_init
 
     lda #GAME_STATE_TITLE

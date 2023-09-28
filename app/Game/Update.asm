@@ -20,7 +20,7 @@
 .segment "CODE"
 
 .import controller_update
-.import player_update
+.import player1_update
 .import stage_update
 
 ; ------------------
@@ -99,7 +99,7 @@
 .export game_update_title
 .proc game_update_title
     jsr stage_update
-    jsr player_update
+    jsr player1_update
     rts
 .endproc
 
@@ -109,6 +109,6 @@
 .export game_update_play
 .proc game_update_play
     jsr stage_update
-    jsr player_update
+    jsr player1_update
     rts
 .endproc

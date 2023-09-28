@@ -15,10 +15,10 @@ BOX_YMAX_INNER = $4e
 .segment "ZEROPAGE"
 
 .importzp stage_state
-.importzp player_x_pos_hi
-.importzp player_y_pos_hi
-.importzp player_x_walk_vel_hi
-.importzp player_y_walk_vel_hi
+.importzp player1_x_pos_hi
+.importzp player1_y_pos_hi
+.importzp player1_x_walk_vel_hi
+.importzp player1_y_walk_vel_hi
 
 ; ---------------------------------------------------------------
 ; Code
@@ -32,33 +32,33 @@ BOX_YMAX_INNER = $4e
 ; stage1_platform1_hittest_x
 ; ------------------
 .proc stage1_platform1_hittest_x
-    lda player_x_walk_vel_hi
+    lda player1_x_walk_vel_hi
     beq exit
 
-    lda player_x_pos_hi
+    lda player1_x_pos_hi
     cmp #BOX_XMIN_INNER
     bcc exit
     cmp #BOX_XMAX
     bcs exit
 
-    lda player_y_pos_hi
+    lda player1_y_pos_hi
     cmp #BOX_YMIN_INNER
     bcc exit
     cmp #BOX_YMAX
     bcs exit
 
-    lda player_x_walk_vel_hi
+    lda player1_x_walk_vel_hi
     cmp #127
     bcs hit_right_side
 
     hit_left_side:
         lda #BOX_XMIN
-        sta player_x_pos_hi
+        sta player1_x_pos_hi
         jmp exit
 
     hit_right_side:
         lda #BOX_XMAX
-        sta player_x_pos_hi
+        sta player1_x_pos_hi
 
     exit:
         rts
@@ -68,30 +68,30 @@ BOX_YMAX_INNER = $4e
 ; stage1_platform1_hittest_y
 ; ------------------
 .proc stage1_platform1_hittest_y
-    lda player_x_pos_hi
+    lda player1_x_pos_hi
     cmp #BOX_XMIN_INNER
     bcc exit
     cmp #BOX_XMAX
     bcs exit
 
-    lda player_y_pos_hi
+    lda player1_y_pos_hi
     cmp #BOX_YMIN_INNER
     bcc exit
     cmp #BOX_YMAX
     bcs exit
 
-    lda player_y_walk_vel_hi
+    lda player1_y_walk_vel_hi
     cmp #127
     bcs hit_bottom_side
 
     hit_top_side:
         lda #BOX_YMIN
-        sta player_y_pos_hi
+        sta player1_y_pos_hi
         jmp exit
 
     hit_bottom_side:
         lda #BOX_YMAX
-        sta player_y_pos_hi
+        sta player1_y_pos_hi
 
     exit:
         rts
@@ -102,7 +102,7 @@ BOX_YMAX_INNER = $4e
 ; ------------------
 .export stage1_hittest_x
 .proc stage1_hittest_x
-    lda player_x_walk_vel_hi
+    lda player1_x_walk_vel_hi
     beq exit
     jsr stage1_platform1_hittest_x
     exit:
@@ -114,7 +114,7 @@ BOX_YMAX_INNER = $4e
 ; ------------------
 .export stage1_hittest_y
 .proc stage1_hittest_y
-    lda player_y_walk_vel_hi
+    lda player1_y_walk_vel_hi
     beq exit
     jsr stage1_platform1_hittest_y
     exit:
