@@ -10,9 +10,10 @@
 
 .segment "ZEROPAGE"
 
-clock_ms:  .res 1
-clock_sec: .res 1
-clock_min: .res 1
+clock_ms_lo: .res 1
+clock_ms_hi: .res 1
+clock_sec:   .res 1
+clock_min:   .res 1
 
 ; ---------------------------------------------------------------
 ; Code
@@ -34,7 +35,8 @@ clock_min: .res 1
 .export clock_init
 .proc clock_init
     lda #0
-    sta clock_ms
+    sta clock_ms_lo
+    sta clock_ms_hi
     sta clock_sec
     sta clock_min
     rts
