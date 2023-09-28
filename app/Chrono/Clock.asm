@@ -16,10 +16,10 @@ clock_min:   .res 1
 .segment "CODE"
 
 ; ------------------
-; clock_tick
+; clock_update
 ; ------------------
-.export clock_tick
-.proc clock_tick
+.export clock_update
+.proc clock_update
     lda clock_ms_lo
     clc
     adc #100
