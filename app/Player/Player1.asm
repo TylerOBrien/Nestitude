@@ -196,9 +196,9 @@ player1_y_walk_vel_hi: .res 1
 .endproc
 
 ; ------------------
-; player1_draw
+; player1_buffer_changes
 ; ------------------
-.proc player1_draw
+.proc player1_buffer_changes
     lda player1_y_pos_hi
     jsr buffer_sprite_push_from_a
     lda #1
@@ -221,7 +221,7 @@ player1_y_walk_vel_hi: .res 1
     jsr player1_check_controller_y
     jsr player1_apply_velocity_y
     jsr player1_hittest_y
-    jsr player1_draw
+    jsr player1_buffer_changes
     rts
 .endproc
 
