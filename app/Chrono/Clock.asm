@@ -22,7 +22,7 @@ clock_min:   .res 1
 .proc clock_tick
     lda clock_ms_lo
     clc
-    adc #83
+    adc #100
     sta clock_ms_lo
 
     lda clock_ms_hi
