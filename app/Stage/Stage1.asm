@@ -1,7 +1,11 @@
-BOX_XMIN = $78
-BOX_XMAX = $a8
-BOX_YMIN = $3f
-BOX_YMAX = $4f
+; ---------------------------------------------------------------
+; ZeroPage
+; ---------------------------------------------------------------
+
+PLATFORM1_XMIN = $78
+PLATFORM1_XMAX = $a8
+PLATFORM1_YMIN = $3f
+PLATFORM1_YMAX = $4f
 
 ; ---------------------------------------------------------------
 ; ZeroPage
@@ -30,16 +34,16 @@ BOX_YMAX = $4f
 
     ldy #0
     lda (actor_pointer_lo), Y ; pos_x
-    cmp #BOX_XMIN+1
+    cmp #PLATFORM1_XMIN+1
     bcc exit
-    cmp #BOX_XMAX
+    cmp #PLATFORM1_XMAX
     bcs exit
 
     ldy #1
     lda (actor_pointer_lo), Y ; pos_y
-    cmp #BOX_YMIN+1
+    cmp #PLATFORM1_YMIN+1
     bcc exit
-    cmp #BOX_YMAX
+    cmp #PLATFORM1_YMAX
     bcs exit
 
     ;
@@ -52,13 +56,13 @@ BOX_YMAX = $4f
     bcs hit_right_side
 
     hit_left_side:
-        lda #BOX_XMIN
+        lda #PLATFORM1_XMIN
         ldy #0
         sta (actor_pointer_lo), Y ; pos_x
         jmp exit
 
     hit_right_side:
-        lda #BOX_XMAX
+        lda #PLATFORM1_XMAX
         ldy #0
         sta (actor_pointer_lo), Y ; pos_x
 
@@ -76,16 +80,16 @@ BOX_YMAX = $4f
 
     ldy #0
     lda (actor_pointer_lo), Y ; pos_x
-    cmp #BOX_XMIN+1
+    cmp #PLATFORM1_XMIN+1
     bcc exit
-    cmp #BOX_XMAX
+    cmp #PLATFORM1_XMAX
     bcs exit
 
     ldy #1
     lda (actor_pointer_lo), Y ; pos_y
-    cmp #BOX_YMIN+1
+    cmp #PLATFORM1_YMIN+1
     bcc exit
-    cmp #BOX_YMAX
+    cmp #PLATFORM1_YMAX
     bcs exit
 
     ;
@@ -98,13 +102,13 @@ BOX_YMAX = $4f
     bcs hit_bottom_side
 
     hit_top_side:
-        lda #BOX_YMIN
+        lda #PLATFORM1_YMIN
         ldy #1
         sta (actor_pointer_lo), Y ; pos_y
         jmp exit
 
     hit_bottom_side:
-        lda #BOX_YMAX
+        lda #PLATFORM1_YMAX
         ldy #1
         sta (actor_pointer_lo), Y ; pos_y
 
