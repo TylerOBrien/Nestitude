@@ -14,24 +14,24 @@ PLAYER_FALLING   = %00000000
 
 .segment "ZEROPAGE"
 
-player_state:    .res 1
+player_state: .res 1
 
 player_x_pos_lo: .res 1
 player_x_pos_hi: .res 1
-player_x_vel_lo: .res 1
-player_x_vel_hi: .res 1
+player_x_walk_vel_lo: .res 1
+player_x_walk_vel_hi: .res 1
 
 player_y_pos_lo: .res 1
 player_y_pos_hi: .res 1
-player_y_vel_lo: .res 1
-player_y_vel_hi: .res 1
+player_y_walk_vel_lo: .res 1
+player_y_walk_vel_hi: .res 1
 
 .importzp controller_state
 
 .exportzp player_x_pos_hi
 .exportzp player_y_pos_hi
-.exportzp player_x_vel_hi
-.exportzp player_y_vel_hi
+.exportzp player_x_walk_vel_hi
+.exportzp player_y_walk_vel_hi
 
 ; ---------------------------------------------------------------
 ; Code
@@ -67,23 +67,23 @@ player_y_vel_hi: .res 1
         lda controller_state
         and #DPAD_LEFT
         beq check_right
-        ldx player_x_vel_hi
+        ldx player_x_walk_vel_hi
         dex
-        stx player_x_vel_hi
+        stx player_x_walk_vel_hi
         jmp exit
 
     check_right:
         lda controller_state
         and #DPAD_RIGHT
         beq no_press
-        ldx player_x_vel_hi
+        ldx player_x_walk_vel_hi
         inx
-        stx player_x_vel_hi
+        stx player_x_walk_vel_hi
         jmp exit
 
     no_press:
         lda #0
-        sta player_x_vel_hi
+        sta player_x_walk_vel_hi
 
     exit:
         rts
@@ -97,23 +97,23 @@ player_y_vel_hi: .res 1
         lda controller_state
         and #DPAD_UP
         beq check_down
-        ldx player_y_vel_hi
+        ldx player_y_walk_vel_hi
         dex
-        stx player_y_vel_hi
+        stx player_y_walk_vel_hi
         jmp exit
 
     check_down:
         lda controller_state
         and #DPAD_DOWN
         beq no_press
-        ldx player_y_vel_hi
+        ldx player_y_walk_vel_hi
         inx
-        stx player_y_vel_hi
+        stx player_y_walk_vel_hi
         jmp exit
 
     no_press:
         lda #0
-        sta player_y_vel_hi
+        sta player_y_walk_vel_hi
 
     exit:
         rts
@@ -123,7 +123,7 @@ player_y_vel_hi: .res 1
 ; player_1_apply_velocity_x
 ; ------------------
 .proc player_1_apply_velocity_x
-    lda player_x_vel_hi
+    lda player_x_walk_vel_hi
     cmp #0
     beq exit
     cmp #127
@@ -135,12 +135,12 @@ player_y_vel_hi: .res 1
 
     prevent_exceeding_max:
         lda #1
-        sta player_x_vel_hi
+        sta player_x_walk_vel_hi
 
     apply:
         lda player_x_pos_hi
         clc
-        adc player_x_vel_hi
+        adc player_x_walk_vel_hi
         sta player_x_pos_hi
         jmp exit
 
@@ -150,7 +150,7 @@ player_y_vel_hi: .res 1
 
     prevent_exceeding_min:
         lda #255
-        sta player_x_vel_hi
+        sta player_x_walk_vel_hi
         jmp apply
 
     exit:
@@ -161,7 +161,7 @@ player_y_vel_hi: .res 1
 ; player_1_apply_velocity_y
 ; ------------------
 .proc player_1_apply_velocity_y
-    lda player_y_vel_hi
+    lda player_y_walk_vel_hi
     cmp #0
     beq exit
     cmp #127
@@ -173,12 +173,12 @@ player_y_vel_hi: .res 1
 
     prevent_exceeding_max:
         lda #1
-        sta player_y_vel_hi
+        sta player_y_walk_vel_hi
 
     apply:
         lda player_y_pos_hi
         clc
-        adc player_y_vel_hi
+        adc player_y_walk_vel_hi
         sta player_y_pos_hi
         jmp exit
 
@@ -188,7 +188,7 @@ player_y_vel_hi: .res 1
 
     prevent_exceeding_min:
         lda #255
-        sta player_y_vel_hi
+        sta player_y_walk_vel_hi
         jmp apply
 
     exit:
@@ -233,10 +233,10 @@ player_y_vel_hi: .res 1
     lda #0
     sta player_x_pos_lo
     sta player_y_pos_lo
-    sta player_x_vel_lo
-    sta player_y_vel_lo
-    sta player_x_vel_hi
-    sta player_y_vel_hi
+    sta player_x_walk_vel_lo
+    sta player_y_walk_vel_lo
+    sta player_x_walk_vel_hi
+    sta player_y_walk_vel_hi
 
     lda #64
     sta player_x_pos_hi

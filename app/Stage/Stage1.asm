@@ -17,8 +17,8 @@ BOX_YMAX_INNER = $4e
 .importzp stage_state
 .importzp player_x_pos_hi
 .importzp player_y_pos_hi
-.importzp player_x_vel_hi
-.importzp player_y_vel_hi
+.importzp player_x_walk_vel_hi
+.importzp player_y_walk_vel_hi
 
 ; ---------------------------------------------------------------
 ; Code
@@ -32,7 +32,7 @@ BOX_YMAX_INNER = $4e
 ; stage1_platform1_hittest_x
 ; ------------------
 .proc stage1_platform1_hittest_x
-    lda player_x_vel_hi
+    lda player_x_walk_vel_hi
     beq exit
 
     lda player_x_pos_hi
@@ -47,7 +47,7 @@ BOX_YMAX_INNER = $4e
     cmp #BOX_YMAX
     bcs exit
 
-    lda player_x_vel_hi
+    lda player_x_walk_vel_hi
     cmp #127
     bcs hit_right_side
 
@@ -80,7 +80,7 @@ BOX_YMAX_INNER = $4e
     cmp #BOX_YMAX
     bcs exit
 
-    lda player_y_vel_hi
+    lda player_y_walk_vel_hi
     cmp #127
     bcs hit_bottom_side
 
@@ -102,7 +102,7 @@ BOX_YMAX_INNER = $4e
 ; ------------------
 .export stage1_hittest_x
 .proc stage1_hittest_x
-    lda player_x_vel_hi
+    lda player_x_walk_vel_hi
     beq exit
     jsr stage1_platform1_hittest_x
     exit:
@@ -114,7 +114,7 @@ BOX_YMAX_INNER = $4e
 ; ------------------
 .export stage1_hittest_y
 .proc stage1_hittest_y
-    lda player_y_vel_hi
+    lda player_y_walk_vel_hi
     beq exit
     jsr stage1_platform1_hittest_y
     exit:
