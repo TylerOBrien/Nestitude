@@ -44,6 +44,7 @@ $(BUILD_DIRS):
 	@mkdir -p assets/chr
 
 clean:
+	@rm -f assets/chr/sprite.chr assets/chr/background.chr
 	@rm -rf build/main.o $(BUILD_DIRS)
 
 $(foreach bdir,$(BUILD_DIRS),$(eval $(call cc-subdir,$(bdir))))
