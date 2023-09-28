@@ -15,10 +15,9 @@ BOX_YMAX_INNER = $4e
 .segment "ZEROPAGE"
 
 .importzp stage_state
-.importzp player1_x_pos_hi
-.importzp player1_y_pos_hi
-.importzp player1_x_walk_vel_hi
-.importzp player1_y_walk_vel_hi
+
+.importzp actor_pointer_lo
+.importzp actor_pointer_hi
 
 ; ---------------------------------------------------------------
 ; Code
@@ -32,33 +31,43 @@ BOX_YMAX_INNER = $4e
 ; stage1_platform1_hittest_x
 ; ------------------
 .proc stage1_platform1_hittest_x
-    lda player1_x_walk_vel_hi
-    beq exit
+    ;
+    ; Check if AABB overlaps
+    ;
 
-    lda player1_x_pos_hi
+    ldy #0
+    lda (actor_pointer_lo), Y ; pos_x
     cmp #BOX_XMIN_INNER
     bcc exit
     cmp #BOX_XMAX
     bcs exit
 
-    lda player1_y_pos_hi
+    ldy #1
+    lda (actor_pointer_lo), Y ; pos_y
     cmp #BOX_YMIN_INNER
     bcc exit
     cmp #BOX_YMAX
     bcs exit
 
-    lda player1_x_walk_vel_hi
+    ;
+    ; There is an overlap so determine which direction actor was moving
+    ;
+
+    ldy #2
+    lda (actor_pointer_lo), Y ; vel_x
     cmp #127
     bcs hit_right_side
 
     hit_left_side:
         lda #BOX_XMIN
-        sta player1_x_pos_hi
+        ldy #0
+        sta (actor_pointer_lo), Y ; pos_x
         jmp exit
 
     hit_right_side:
         lda #BOX_XMAX
-        sta player1_x_pos_hi
+        ldy #0
+        sta (actor_pointer_lo), Y ; pos_x
 
     exit:
         rts
@@ -68,30 +77,43 @@ BOX_YMAX_INNER = $4e
 ; stage1_platform1_hittest_y
 ; ------------------
 .proc stage1_platform1_hittest_y
-    lda player1_x_pos_hi
+    ;
+    ; Check if AABB overlaps
+    ;
+
+    ldy #0
+    lda (actor_pointer_lo), Y ; pos_x
     cmp #BOX_XMIN_INNER
     bcc exit
     cmp #BOX_XMAX
     bcs exit
 
-    lda player1_y_pos_hi
+    ldy #1
+    lda (actor_pointer_lo), Y ; pos_y
     cmp #BOX_YMIN_INNER
     bcc exit
     cmp #BOX_YMAX
     bcs exit
 
-    lda player1_y_walk_vel_hi
+    ;
+    ; There is an overlap so determine which direction actor was moving
+    ;
+
+    ldy #3
+    lda (actor_pointer_lo), Y ; vel_y
     cmp #127
     bcs hit_bottom_side
 
     hit_top_side:
         lda #BOX_YMIN
-        sta player1_y_pos_hi
+        ldy #1
+        sta (actor_pointer_lo), Y ; pos_y
         jmp exit
 
     hit_bottom_side:
         lda #BOX_YMAX
-        sta player1_y_pos_hi
+        ldy #1
+        sta (actor_pointer_lo), Y ; pos_y
 
     exit:
         rts
@@ -102,7 +124,8 @@ BOX_YMAX_INNER = $4e
 ; ------------------
 .export stage1_hittest_x
 .proc stage1_hittest_x
-    lda player1_x_walk_vel_hi
+    ldy #2
+    lda (actor_pointer_lo), Y ; vel_x
     beq exit
     jsr stage1_platform1_hittest_x
     exit:
@@ -114,7 +137,8 @@ BOX_YMAX_INNER = $4e
 ; ------------------
 .export stage1_hittest_y
 .proc stage1_hittest_y
-    lda player1_y_walk_vel_hi
+    ldy #3
+    lda (actor_pointer_lo), Y ; vel_y
     beq exit
     jsr stage1_platform1_hittest_y
     exit:
