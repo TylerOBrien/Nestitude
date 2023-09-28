@@ -10,9 +10,7 @@ BOX_YMAX = $4f
 .segment "ZEROPAGE"
 
 .importzp stage_state
-
 .importzp actor_pointer_lo
-.importzp actor_pointer_hi
 
 ; ---------------------------------------------------------------
 ; Code
