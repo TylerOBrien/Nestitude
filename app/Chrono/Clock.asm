@@ -10,7 +10,7 @@
 
 .segment "ZEROPAGE"
 
-clock_ms: .res 1
+clock_ms:  .res 1
 clock_sec: .res 1
 clock_min: .res 1
 
