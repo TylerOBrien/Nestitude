@@ -16,6 +16,8 @@ nmi_count: .res 1
 
 .segment "CODE"
 
+.import tick_update
+.import clock_tick
 .import game_draw
 
 ; ------------------
@@ -23,6 +25,8 @@ nmi_count: .res 1
 ; ------------------
 .export nmi_handle
 .proc nmi_handle
+    jsr tick_update
+    jsr clock_tick
     jsr game_draw ; Draw the game
 
     lda #0
