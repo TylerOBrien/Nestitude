@@ -29,25 +29,41 @@ hit_test_state: .res 1
 ; ------------------
 .export hit_test
 .proc hit_test
+    ;
     ; Check if right-side of actor is to the right of the left-side of obstruction
+    ;
+
     lda actor_x_max
     cmp obstruct_x_min
     bcc failed
 
+    ;
     ; Check if left-side of actor is to the left of the right-side of obstruction
+    ;
+
     lda actor_x_min
     cmp obstruct_x_max
     bcs failed
 
+    ;
     ; Check if bottom-side of actor is below top-side of obstruction
+    ;
+
     lda actor_y_max
     cmp obstruct_y_min
     bcc failed
 
+    ;
     ; Check if bottom-side of actor is above bottom-side of obstruction
+    ;
+
     lda actor_y_min
     cmp obstruct_y_max
     bcs failed
+
+    ;
+    ; Results of hit test
+    ;
 
     passed:
         lda #1
