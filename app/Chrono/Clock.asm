@@ -20,7 +20,12 @@ clock_min:   .res 1
 ; ------------------
 .export clock_tick
 .proc clock_tick
-    ;
+    lda clock_ms_lo
+    clc
+    adc #16
+    lda #clock_ms_hi
+    adc #0
+    rts
 .endproc
 
 ; ------------------
