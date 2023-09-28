@@ -16,7 +16,7 @@ nmi_wait: .res 1
 
 .import tick_update
 .import clock_update
-.import game_draw
+.import buffer_sprite_draw
 
 ; ------------------
 ; nmi_handle
@@ -25,7 +25,7 @@ nmi_wait: .res 1
 .proc nmi_handle
     jsr tick_update
     jsr clock_update
-    jsr game_draw
+    jsr buffer_sprite_draw
 
     lda #0
     sta $2005
