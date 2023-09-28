@@ -95,18 +95,17 @@ PLATFORM1_YMAX = $4f
 
     ldy #2
     lda (actor_pointer_lo), Y ; vel_x
+    ldy #0
     cmp #127
     bcs hit_right_side
 
     hit_left_side:
         lda #PLATFORM1_XMIN
-        ldy #0
         sta (actor_pointer_lo), Y ; pos_x
         jmp exit
 
     hit_right_side:
         lda #PLATFORM1_XMAX
-        ldy #0
         sta (actor_pointer_lo), Y ; pos_x
 
     exit:
@@ -141,18 +140,17 @@ PLATFORM1_YMAX = $4f
 
     ldy #3
     lda (actor_pointer_lo), Y ; vel_y
+    ldy #1
     cmp #127
     bcs hit_bottom_side
 
     hit_top_side:
         lda #PLATFORM1_YMIN
-        ldy #1
         sta (actor_pointer_lo), Y ; pos_y
         jmp exit
 
     hit_bottom_side:
         lda #PLATFORM1_YMAX
-        ldy #1
         sta (actor_pointer_lo), Y ; pos_y
 
     exit:
