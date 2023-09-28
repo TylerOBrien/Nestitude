@@ -41,6 +41,7 @@ assets/chr/background.chr:
 
 $(BUILD_DIRS):
 	@mkdir -p $@
+	@mkdir -p assets/chr
 
 clean:
 	@rm -rf build/main.o $(BUILD_DIRS)
