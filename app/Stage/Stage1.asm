@@ -3,11 +3,6 @@ BOX_XMAX = $a8
 BOX_YMIN = $3f
 BOX_YMAX = $4f
 
-BOX_XMIN_INNER = $79
-BOX_XMAX_INNER = $a7
-BOX_YMIN_INNER = $40
-BOX_YMAX_INNER = $4e
-
 ; ---------------------------------------------------------------
 ; ZeroPage
 ; ---------------------------------------------------------------
@@ -37,14 +32,14 @@ BOX_YMAX_INNER = $4e
 
     ldy #0
     lda (actor_pointer_lo), Y ; pos_x
-    cmp #BOX_XMIN_INNER
+    cmp #BOX_XMIN+1
     bcc exit
     cmp #BOX_XMAX
     bcs exit
 
     ldy #1
     lda (actor_pointer_lo), Y ; pos_y
-    cmp #BOX_YMIN_INNER
+    cmp #BOX_YMIN+1
     bcc exit
     cmp #BOX_YMAX
     bcs exit
@@ -83,14 +78,14 @@ BOX_YMAX_INNER = $4e
 
     ldy #0
     lda (actor_pointer_lo), Y ; pos_x
-    cmp #BOX_XMIN_INNER
+    cmp #BOX_XMIN+1
     bcc exit
     cmp #BOX_XMAX
     bcs exit
 
     ldy #1
     lda (actor_pointer_lo), Y ; pos_y
-    cmp #BOX_YMIN_INNER
+    cmp #BOX_YMIN+1
     bcc exit
     cmp #BOX_YMAX
     bcs exit
