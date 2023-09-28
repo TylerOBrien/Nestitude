@@ -34,7 +34,6 @@ stage_state: .res 1
 .export stage_update
 .proc stage_update
     lda stage_state
-    and #%00001111
 
     check_stage_1:
         cmp #STAGE_1
