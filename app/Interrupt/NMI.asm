@@ -25,7 +25,7 @@ nmi_wait: .res 1
 .proc nmi_handle
     jsr tick_update
     jsr clock_update
-    jsr game_draw ; Draw the game
+    jsr game_draw
 
     lda #0
     sta $2005
