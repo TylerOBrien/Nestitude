@@ -25,6 +25,49 @@ PLATFORM1_YMAX = $4f
 .import buffer_sprite_push_from_a
 
 ; ------------------
+; stage1_hittest_x
+; ------------------
+.export stage1_hittest_x
+.proc stage1_hittest_x
+    jsr stage1_platform1_hittest_x
+    rts
+.endproc
+
+; ------------------
+; stage1_hittest_y
+; ------------------
+.export stage1_hittest_y
+.proc stage1_hittest_y
+    jsr stage1_platform1_hittest_y
+    rts
+.endproc
+
+; ------------------
+; stage1_update
+; ------------------
+.export stage1_update
+.proc stage1_update
+    rts
+    lda #150
+    jsr buffer_sprite_push_from_a
+    lda #2
+    jsr buffer_sprite_push_from_a
+    lda #2
+    jsr buffer_sprite_push_from_a
+    lda #50
+    jsr buffer_sprite_push_from_a
+    rts
+.endproc
+
+; ------------------
+; stage1_init
+; ------------------
+.export stage1_init
+.proc stage1_init
+    rts
+.endproc
+
+; ------------------
 ; stage1_platform1_hittest_x
 ; ------------------
 .proc stage1_platform1_hittest_x
@@ -114,47 +157,4 @@ PLATFORM1_YMAX = $4f
 
     exit:
         rts
-.endproc
-
-; ------------------
-; stage1_hittest_x
-; ------------------
-.export stage1_hittest_x
-.proc stage1_hittest_x
-    jsr stage1_platform1_hittest_x
-    rts
-.endproc
-
-; ------------------
-; stage1_hittest_y
-; ------------------
-.export stage1_hittest_y
-.proc stage1_hittest_y
-    jsr stage1_platform1_hittest_y
-    rts
-.endproc
-
-; ------------------
-; stage1_update
-; ------------------
-.export stage1_update
-.proc stage1_update
-    rts
-    lda #150
-    jsr buffer_sprite_push_from_a
-    lda #2
-    jsr buffer_sprite_push_from_a
-    lda #2
-    jsr buffer_sprite_push_from_a
-    lda #50
-    jsr buffer_sprite_push_from_a
-    rts
-.endproc
-
-; ------------------
-; stage1_init
-; ------------------
-.export stage1_init
-.proc stage1_init
-    rts
 .endproc
