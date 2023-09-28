@@ -8,16 +8,6 @@ PLAYER_ON_GROUND = %00000001
 PLAYER_JUMPING   = %00000010
 PLAYER_FALLING   = %00000000
 
-BOX_XMIN = $78
-BOX_XMAX = $a8
-BOX_YMIN = $3f
-BOX_YMAX = $4f
-
-BOX_XMIN_INNER = $79
-BOX_XMAX_INNER = $a7
-BOX_YMIN_INNER = $40
-BOX_YMAX_INNER = $4e
-
 ; ---------------------------------------------------------------
 ; ZeroPage
 ; ---------------------------------------------------------------
@@ -38,6 +28,11 @@ player_y_vel_hi: .res 1
 
 .importzp controller_state
 
+.exportzp player_x_pos_hi
+.exportzp player_y_pos_hi
+.exportzp player_x_vel_hi
+.exportzp player_y_vel_hi
+
 ; ---------------------------------------------------------------
 ; Code
 ; ---------------------------------------------------------------
@@ -45,77 +40,23 @@ player_y_vel_hi: .res 1
 .segment "CODE"
 
 .import buffer_sprite_push_from_a
+.import stage_hittest_x
+.import stage_hittest_y
 
 ; ------------------
 ; player_1_hittest_x
 ; ------------------
 .proc player_1_hittest_x
-    lda player_x_vel_hi
-    beq exit
-
-    lda player_x_pos_hi
-    cmp #BOX_XMIN_INNER
-    bcc exit
-    cmp #BOX_XMAX
-    bcs exit
-
-    lda player_y_pos_hi
-    cmp #BOX_YMIN_INNER
-    bcc exit
-    cmp #BOX_YMAX
-    bcs exit
-
-    lda player_x_vel_hi
-    cmp #127
-    bcs hit_right_side
-
-    hit_left_side:
-        lda #BOX_XMIN
-        sta player_x_pos_hi
-        jmp exit
-
-    hit_right_side:
-        lda #BOX_XMAX
-        sta player_x_pos_hi
-
-    exit:
-        rts
+    jsr stage_hittest_x
+    rts
 .endproc
 
 ; ------------------
 ; player_1_hittest_y
 ; ------------------
 .proc player_1_hittest_y
-    lda player_y_vel_hi
-    beq exit
-
-    lda player_x_pos_hi
-    cmp #BOX_XMIN_INNER
-    bcc exit
-    cmp #BOX_XMAX
-    bcs exit
-
-    lda player_y_pos_hi
-    cmp #BOX_YMIN_INNER
-    bcc exit
-    cmp #BOX_YMAX
-    bcs exit
-
-    lda player_y_vel_hi
-    cmp #127
-    bcs hit_bottom_side
-
-    hit_top_side:
-        lda #BOX_YMIN
-        sta player_y_pos_hi
-        jmp exit
-
-    hit_bottom_side:
-        lda #BOX_YMAX
-        sta player_y_pos_hi
-
-    exit:
-        rts
+    jsr stage_hittest_y
+    rts
 .endproc
 
 ; ------------------
@@ -176,21 +117,6 @@ player_y_vel_hi: .res 1
 
     exit:
         rts
-.endproc
-
-; ------------------
-; player_draw
-; ------------------
-.proc player_draw
-    lda player_y_pos_hi
-    jsr buffer_sprite_push_from_a
-    lda #1
-    jsr buffer_sprite_push_from_a
-    lda #2
-    jsr buffer_sprite_push_from_a
-    lda player_x_pos_hi
-    jsr buffer_sprite_push_from_a
-    rts
 .endproc
 
 ; ------------------
@@ -270,6 +196,21 @@ player_y_vel_hi: .res 1
 .endproc
 
 ; ------------------
+; player_draw
+; ------------------
+.proc player_draw
+    lda player_y_pos_hi
+    jsr buffer_sprite_push_from_a
+    lda #1
+    jsr buffer_sprite_push_from_a
+    lda #2
+    jsr buffer_sprite_push_from_a
+    lda player_x_pos_hi
+    jsr buffer_sprite_push_from_a
+    rts
+.endproc
+
+; ------------------
 ; player_update
 ; ------------------
 .export player_update
@@ -297,7 +238,7 @@ player_y_vel_hi: .res 1
     sta player_x_vel_hi
     sta player_y_vel_hi
 
-    lda #132
+    lda #64
     sta player_x_pos_hi
     sta player_y_pos_hi
 

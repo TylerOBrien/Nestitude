@@ -19,6 +19,8 @@ stage_state: .res 1
 .segment "CODE"
 
 .import stage1_init
+.import stage1_hittest_x
+.import stage1_hittest_y
 .import stage2_init
 
 .import stage1_update
@@ -42,6 +44,34 @@ stage_state: .res 1
         cmp #STAGE_2
         bne exit
         jsr stage2_update
+
+    exit:
+        rts
+.endproc
+
+; ------------------
+; stage_hittest_x
+; ------------------
+.export stage_hittest_x
+.proc stage_hittest_x
+    lda stage_state
+    cmp #STAGE_1
+    bne exit
+    jsr stage1_hittest_x
+
+    exit:
+        rts
+.endproc
+
+; ------------------
+; stage_hittest_y
+; ------------------
+.export stage_hittest_y
+.proc stage_hittest_y
+    lda stage_state
+    cmp #STAGE_1
+    bne exit
+    jsr stage1_hittest_y
 
     exit:
         rts
