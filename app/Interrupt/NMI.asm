@@ -30,8 +30,7 @@ nmi_wait: .res 1
     lda #0
     sta $2005
 	sta $2005
-
-    sta nmi_wait  ; Store 0 to disable the wait flag
+    sta nmi_wait
 
     rti
 .endproc
