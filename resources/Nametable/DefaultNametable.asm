@@ -32,6 +32,6 @@
 .segment "RODATA"
 nametable_default_rle_bytes:
     .byte $20
-    .byte $83, $05, $00
+    .byte $83, $01, $00
     .byte $30
-    .byte $15, $05
+    .byte $15, $01
