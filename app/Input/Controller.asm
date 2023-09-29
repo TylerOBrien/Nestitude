@@ -4,8 +4,7 @@
 
 .segment "ZEROPAGE"
 
-controller_state:   .res 2
-controller_enabled: .res 1
+controller_state: .res 2
 
 .exportzp controller_state
 
@@ -58,11 +57,7 @@ controller_enabled: .res 1
 ; ------------------
 .export controller_update
 .proc controller_update
-    check_if_update_controller_1:
-        lda controller_enabled
-        and #%00000001
-        beq check_if_update_controller_2
-        jsr controller_read_1
+    jsr controller_read_1
 
     fix_dpcm_glitch_1:
         lda controller_state
@@ -72,11 +67,7 @@ controller_enabled: .res 1
         cmp controller_state
         bne fix_dpcm_glitch_1
 
-    check_if_update_controller_2:
-        lda controller_enabled
-        and #%00000010
-        beq exit
-        jsr controller_read_2
+    jsr controller_read_2
 
     fix_dpcm_glitch_2:
         lda controller_state+1
@@ -86,8 +77,7 @@ controller_enabled: .res 1
         cmp controller_state+1
         bne fix_dpcm_glitch_2
 
-    exit:
-        rts
+    rts
 .endproc
 
 ; ------------------
@@ -98,7 +88,5 @@ controller_enabled: .res 1
     lda #0
     sta controller_state
     sta controller_state+1
-    lda #%00000001
-    sta controller_enabled
     rts
 .endproc
