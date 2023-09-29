@@ -14,6 +14,7 @@ MODULE_OBJS    := $(patsubst app/%.asm,build/app/%.o,$(MODULE_FILES))
 RESOURCE_FILES := $(foreach rdir,$(RESOURCE_DIRS),$(wildcard $(rdir)/*.asm))
 RESOURCE_OBJS  := $(patsubst resources/%.asm,build/resources/%.o,$(RESOURCE_FILES))
 
+PY             := python
 CC             := ca65
 LD             := ld65
 
@@ -34,10 +35,10 @@ build/main.o: $(MAIN_FILE) $(CHR_FILES)
 	$(CC) -o build/main.o $(MAIN_FILE)
 
 assets/chr/sprite.chr:
-	python tools/nes_chr_encode.py assets/png/sprite.png assets/chr/sprite.chr
+	$(PY) tools/nes_chr_encode.py assets/png/sprite.png assets/chr/sprite.chr
 
 assets/chr/background.chr:
-	python tools/nes_chr_encode.py assets/png/background.png assets/chr/background.chr
+	$(PY) tools/nes_chr_encode.py assets/png/background.png assets/chr/background.chr
 
 $(BUILD_DIRS):
 	@mkdir -p $@
