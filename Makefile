@@ -1,6 +1,6 @@
 NAME           := Nestitude
 RESOURCES      := Nametable Palette
-MODULES        := Buffer Chrono Game Input Interrupt Nametable Palette Physics Player Stage System
+MODULES        := Buffer Chrono Game Input Interrupt Nametable Palette Physics Player Random Stage System
 
 MODULE_DIRS    := $(addprefix app/,$(MODULES))
 RESOURCE_DIRS  := $(addprefix resources/,$(RESOURCES))

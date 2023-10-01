@@ -17,6 +17,7 @@ nmi_wait: .res 1
 .import tick_update
 .import clock_update
 .import buffer_sprite_draw
+.import random_update
 
 ; ------------------
 ; nmi_handle
@@ -32,6 +33,7 @@ nmi_wait: .res 1
     jsr tick_update
     jsr clock_update
     jsr buffer_sprite_draw
+    jsr random_update
 
     lda #0
     sta $2005
