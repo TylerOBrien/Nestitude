@@ -9,6 +9,11 @@ clock_ms_hi: .res 1
 clock_sec:   .res 1
 clock_min:   .res 1
 
+.exportzp clock_ms_lo
+.exportzp clock_ms_hi
+.exportzp clock_sec
+.exportzp clock_min
+
 ; ---------------------------------------------------------------
 ; Code
 ; ---------------------------------------------------------------

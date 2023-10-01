@@ -13,6 +13,9 @@
 tick_count_lo: .res 1
 tick_count_hi: .res 1
 
+.exportzp tick_count_lo
+.exportzp tick_count_hi
+
 ; ---------------------------------------------------------------
 ; Code
 ; ---------------------------------------------------------------
