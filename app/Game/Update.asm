@@ -22,6 +22,7 @@
 .import controller_update
 .import player1_update
 .import stage_update
+.import hud_update
 
 ; ------------------
 ; game_update
@@ -100,6 +101,7 @@
 .proc game_update_title
     jsr stage_update
     jsr player1_update
+    jsr hud_update
     rts
 .endproc
 
@@ -110,5 +112,6 @@
 .proc game_update_play
     jsr stage_update
     jsr player1_update
+    jsr hud_update
     rts
 .endproc
