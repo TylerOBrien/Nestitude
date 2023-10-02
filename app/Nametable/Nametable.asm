@@ -34,30 +34,29 @@ nametable_rle_pointer_hi: .res 1
     ldy #0
     lda $2002 ; PPU_STATUS
 
-    read_lobyte:
-        lda (nametable_rle_pointer_lo), Y
+    read_hibyte:
+        lda (nametable_rle_pointer_lo), Y ; hibyte
         tax
         iny
 
-    read_hibyte_count_tile:
-        lda (nametable_rle_pointer_lo), Y
-        beq reset_lobyte
+    read_lobyte_count_tile:
+        lda (nametable_rle_pointer_lo), Y ; lobyte
+        beq reset_hibyte
 
-        and #%00000011
-        clc
-        adc #$20
-        sta $2006 ; PPU_ADDR
+    write_pos:
         stx $2006 ; PPU_ADDR
+        sta $2006 ; PPU_ADDR
 
+    read_count:
         txa
         pha
-        lda (nametable_rle_pointer_lo), Y
-        lsr
-        lsr
+        iny
+        lda (nametable_rle_pointer_lo), Y ; count
         tax
 
+    read_tile:
         iny
-        lda (nametable_rle_pointer_lo), Y
+        lda (nametable_rle_pointer_lo), Y ; tile
         iny
 
     copy:
@@ -70,12 +69,12 @@ nametable_rle_pointer_hi: .res 1
 
     check_if_done:
         cpy nametable_rle_count
-        beq exit
-        jmp read_hibyte_count_tile
+        bcs exit
+        jmp read_lobyte_count_tile
 
-    reset_lobyte:
+    reset_hibyte:
         iny
-        jmp read_lobyte
+        jmp read_hibyte
 
     exit:
         rts
