@@ -1,6 +1,6 @@
 NAME           := Nestitude
 RESOURCES      := Nametable Palette
-MODULES        := Buffer Chrono Game Input Interrupt Nametable Palette Physics Player Random Stage System
+MODULES        := Buffer Chrono Game HUD Input Interrupt Nametable Palette Physics Player Random Stage System
 
 MODULE_DIRS    := $(addprefix app/,$(MODULES))
 RESOURCE_DIRS  := $(addprefix resources/,$(RESOURCES))
@@ -31,10 +31,12 @@ all: prepare assets/chr/sprite.chr assets/chr/background.chr build/main.o $(MODU
 
 prepare: $(BUILD_DIRS)
 
-assets/chr/sprite.chr:
+assets/chr/sprite.chr: assets/png/sprite.png
+	@rm -f assets/chr/sprite.chr
 	$(PY) tools/nes_chr_encode.py assets/png/sprite.png assets/chr/sprite.chr
 
-assets/chr/background.chr:
+assets/chr/background.chr: assets/png/background.png
+	@rm -f assets/chr/background.chr
 	$(PY) tools/nes_chr_encode.py assets/png/background.png assets/chr/background.chr
 
 build/main.o: $(MAIN_FILE) $(CHR_FILES)
