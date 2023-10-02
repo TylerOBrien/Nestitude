@@ -52,6 +52,6 @@ buffer_sprite: .res 256
 .export buffer_sprite_init
 .proc buffer_sprite_init
     lda #0
-    stx buffer_sprite_length
+    sta buffer_sprite_length
     rts
 .endproc
