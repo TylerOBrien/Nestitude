@@ -4,6 +4,7 @@
 
 .segment "ZEROPAGE"
 
+clock_ms_dec: .res 1
 clock_ms_lo: .res 1
 clock_ms_hi: .res 1
 clock_sec:   .res 1
@@ -25,17 +26,32 @@ clock_min:   .res 1
 ; ------------------
 .export clock_update
 .proc clock_update
-    lda clock_ms_lo
-    clc
-    adc #100
-    sta clock_ms_lo
+    increment_dec:
+        lda clock_ms_dec
+        clc
+        adc #64
+        cmp #100
+        bcc increment_ms_lo
+
+    reset_dec:
+        sbc #100
+        sta clock_ms_dec
+        sec
+
+    increment_ms_lo:
+        lda clock_ms_lo
+        adc #16
+        sta clock_ms_lo
 
     lda clock_ms_hi
     adc #0
     sta clock_ms_hi
 
-    cmp #20
+    cmp #4
     bne exit
+    lda clock_ms_lo
+    cmp #78
+    bcc exit
 
     lda clock_sec
     clc
@@ -64,6 +80,7 @@ clock_min:   .res 1
 .export clock_init
 .proc clock_init
     lda #0
+    sta clock_ms_dec
     sta clock_ms_lo
     sta clock_ms_hi
     sta clock_sec
