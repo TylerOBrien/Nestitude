@@ -30,6 +30,7 @@ game_state: .res 1
 .import player1_init
 .import stage_init
 
+.import buffer_sprite_init
 .import buffer_background_init
 
 ; ------------------
@@ -46,6 +47,7 @@ game_state: .res 1
     jsr player1_init
     jsr stage_init
 
+    jsr buffer_sprite_init
     jsr buffer_background_init
 
     lda #GAME_STATE_TITLE
