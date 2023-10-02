@@ -16,6 +16,7 @@ frame_sec_modulo: .res 1
 
 .exportzp tick_count_lo
 .exportzp tick_count_hi
+.exportzp frame_sec_modulo
 
 ; ---------------------------------------------------------------
 ; Code
@@ -31,7 +32,7 @@ frame_sec_modulo: .res 1
     check_frame_sec:
         lda frame_sec_modulo
         cmp #60
-        beq increment_frame_sec
+        bne increment_frame_sec
         lda #0
         sta frame_sec_modulo
         jmp increment_tick_count
