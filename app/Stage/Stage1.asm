@@ -5,7 +5,7 @@
 PLATFORM1_XMIN = $78
 PLATFORM1_XMAX = $a8
 PLATFORM1_YMIN = $3f
-PLATFORM1_YMAX = $4f
+PLATFORM1_YMAX = $57
 
 ; ---------------------------------------------------------------
 ; ZeroPage
