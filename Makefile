@@ -26,19 +26,19 @@ $1/%.o: %.asm $(CONSTANTS_FILE)
 	$(CC) -o $$@ $$<
 endef
 
-all: prepare build/main.o assets/chr/sprite.chr assets/chr/background.chr $(MODULE_OBJS) $(RESOURCE_OBJS)
+all: prepare assets/chr/sprite.chr assets/chr/background.chr build/main.o $(MODULE_OBJS) $(RESOURCE_OBJS)
 	$(LD) -C config/nes.cfg -o dist/$(NAME).nes build/main.o $(MODULE_OBJS) $(RESOURCE_OBJS)
 
 prepare: $(BUILD_DIRS)
-
-build/main.o: $(MAIN_FILE) $(CHR_FILES)
-	$(CC) -o build/main.o $(MAIN_FILE)
 
 assets/chr/sprite.chr:
 	$(PY) tools/nes_chr_encode.py assets/png/sprite.png assets/chr/sprite.chr
 
 assets/chr/background.chr:
 	$(PY) tools/nes_chr_encode.py assets/png/background.png assets/chr/background.chr
+
+build/main.o: $(MAIN_FILE) $(CHR_FILES)
+	$(CC) -o build/main.o $(MAIN_FILE)
 
 $(BUILD_DIRS):
 	@mkdir -p $@
