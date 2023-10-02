@@ -63,5 +63,6 @@ frame_sec_modulo: .res 1
     lda #0
     sta tick_count_lo
     sta tick_count_hi
+    sta frame_sec_modulo
     rts
 .endproc
