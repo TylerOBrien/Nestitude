@@ -21,7 +21,7 @@ buffer_sprite: .res 256
 .segment "CODE"
 
 ; ------------------
-; buffer_sprite_sta
+; buffer_sprite_push_from_a
 ; ------------------
 .export buffer_sprite_push_from_a
 .proc buffer_sprite_push_from_a
