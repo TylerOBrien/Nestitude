@@ -31,10 +31,10 @@ nmi_wait: .res 1
     tya
     pha
 
-    jsr tick_update
-    jsr clock_update
     jsr buffer_sprite_draw
     jsr buffer_background_draw
+    jsr tick_update
+    jsr clock_update
     jsr random_update
 
     lda #0
